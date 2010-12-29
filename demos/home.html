@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Less test case</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+</head>
+<body>
+
+<a href="#photos">Photos</a>
+<a href="#messages">Messages</a>
+
+<div id="wp" style="border:1px solid #666;padding:30px;margin-top:20px;">
+</div>
+
+
+<script type="text/javascript" src="../less.js" ></script>
+<script type="text/javascript" src="http://style.aliexpress.com/js/5v/util/connection.js" ></script>
+<script type="text/javascript">
+	Less.init({
+		moduleMaps : "http://ki.ss/less/js/modules.js" ,
+		defaultModule : "photos"
+	});
+
+</script>
+<iframe frameborder="0" src="http://ki.ss/less/blank.html" width="0" height="0" id="hist-frame"></iframe>
+</body>
+</html>
