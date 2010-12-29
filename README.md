@@ -1,3 +1,3 @@
 <div class="wikistyle">
-	<h1>jQuery carousel - a flexible jQuery plugin for carousel showcase</h1>
+	<h1>Less - a full-page ajax framework</h1>
 </div>
