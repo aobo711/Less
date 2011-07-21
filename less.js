@@ -76,56 +76,6 @@ var Less = (function(){
         };
         
     };
-    
-    
-    /**
-     * default content loader using YUI2.6(that sucks -__-)
-     *
-     */
-    var YUILoader = new ContentLoader();
-    
-    /**
-     * then it needs to rewrite Function asyncRequest that is used for sending request, and handle callback
-     *
-     * @param {Object} method
-     * @param {Object} url
-     * @param {Object} callback
-     */
-    YUILoader.asyncRequest = function(method, url, callback){
-        YAHOO.util.Connect.asyncRequest(method, url, callback);
-    };
-    
-    /**
-     * In most cases,you need to rewrite Function parseResponse, it is responsible for rendering HTML and something else you need.
-     *
-     * @param {Object} res
-     */
-    YUILoader.parseResponse = function(res){
-        var container = document.getElementById(this.container);
-        if (!container) {
-            return;
-        }
-        container.innerHTML = res.responseText;
-    };
-    /**
-     * do something when loading contents
-     *
-     * @param {Object} flag
-     */
-    YUILoader.setProcressing = function(flag){
-        if (flag) {
-            YUD.setStyle("procressing", "display", "block");
-        }
-        else {
-            YUD.setStyle("procressing", "display", "none");
-        }
-    }
-    YUILoader.handleFailure = function(res){
-		if(res.statusText == "communication failure"){			
-//			location.reload();
-		}
-	};
-	
 	
     /**
      * merge properties of two objects
@@ -767,7 +717,26 @@ var Less = (function(){
         _modulesManager.init(args);
         
         
-    },    /**
+    },    
+	
+    
+	/**
+	 * use jquery ajax connection manager as content loader
+	 */
+	jqueryLoader = {
+		asyncRequest : function(method , url ,callback){
+			$.ajax({		
+				 url: url,
+				 success : callback.success
+			});
+		},
+		parseResponse : function(res){
+			var _t = this;
+			$("#" + _t.container).html(res);
+		}
+	},
+	
+	/**
      * some default setting for less
      *
      * @property _defaultArgs
@@ -775,7 +744,7 @@ var Less = (function(){
      * @private
      */
     _defaultArgs = {
-        contentLoader: YUILoader,
+        contentLoader: jqueryLoader,
         historyManager: HistoryManager,
         modulesManager: ModulesManager,
         histFrame: HISTFRAME
